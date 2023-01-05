@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "get-ranking-py"
+version = "0.1.0"
+description = "【株式会社ゆめみ】サーバーサイドエンジニア応募者向け模試の回答"
+authors = ["dativus <sn.sable005@gmail.com>"]
+readme = "README.md"
+packages = [{include = "get_ranking_py"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyright = "^1.1.287"
+sphinx = "^6.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
