@@ -8,29 +8,37 @@ from csv import DictReader
 from typing import Dict, Iterator, List
 
 class PlayLog:
-    """各プレイヤーの「合計プレイ回数」「合計スコア」を保持
+    """各プレイヤーの「合計スコア」「合計プレイ回数」を保持
 
+    :param sum_score: 合計スコア（初期値: 0）
+    :type sum_score: int
+    :param sum_play: 合計プレイ回数（初期値: 0）
+    :type sum_play: int
     """
-    def __init__(self) -> None:
-        self.sum_play: int = 0
-        self.sum_score: int = 0
+    def __init__(self, sum_score: int = 0, sum_play: int = 0) -> None:
+        self.sum_score: int = sum_score
+        self.sum_play: int = sum_play
 
-    def add(self, score: int) -> None:
-        """各プレイヤーの「プレイ回数」「スコア」を加算
+    def add(self, score: int, play: int = 1) -> None:
+        """各プレイヤーの「スコア」「プレイ回数」を加算
 
         :param score: 加算するスコア
         :type score: int
+        :param play: 加算するプレイ回数（+1）
+        :type play: int
         """
-        self.sum_play += 1
         self.sum_score += score
+        self.sum_play += play
 
     def get_mean(self) -> int:
         """各プレイヤーの「平均スコア」（四捨五入）を算出
 
+        :returns round(self.sum_score / self.sum_play): 四捨五入した「平均スコア」
+        :rtype: int
         """
         return round(self.sum_score / self.sum_play)
 
-class Rank:
+class MeanGroup:
     """「平均スコア」毎に「プレイヤーID」をグルーピング
 
     :param mean_score: 平均スコア
@@ -51,14 +59,14 @@ def main() -> None:
         # ファイルパスのバリデーションチェック
         validate_filepath(get_filepath(get_args()))
 
-        # ファイルパスから「プレイヤーID」毎にスコアを集計・取得
+        # ファイルパスから「プレイヤーID」毎にスコアを集計
         groupby_playlog: Dict[str, PlayLog] = groupby_csv(get_filepath(get_args()))
 
         # 集計後のプレイログから「平均スコア」を算出
         mean_playlog: Dict[str, int] = mean_dict(groupby_playlog)
 
         # 「平均スコア」算出後のプレイログから「平均スコア」によるランキング（10位以内）を算出
-        rank_playlog: Dict[int, Rank] = rank_dict(mean_playlog, 10)
+        rank_playlog: Dict[int, MeanGroup] = rank_dict(mean_playlog, 10)
 
         # 「平均スコア」によるランキングを標準出力
         print_playlog(rank_playlog)
@@ -69,6 +77,8 @@ def main() -> None:
 def get_args() -> list[str]:
     """コマンドライン引数を取得
 
+    :returns sys.argv: コマンドライン引数
+    :rtype: list[str]
     """
     return sys.argv
 
@@ -90,6 +100,8 @@ def get_filepath(args: list[str]) -> str:
 
     :param args: コマンドライン引数
     :type args: list[str]
+    :returns args[1]: ファイルパス（コマンドライン引数の第二引数）
+    :rtype: str
     """
     return args[1]
 
@@ -105,10 +117,12 @@ def validate_filepath(filepath: str) -> None:
         raise Exception('not a csv file')
 
 def groupby_csv(filepath: str) -> Dict[str, PlayLog]:
-    """ファイルパスから「プレイヤーID」毎にスコアを集計・取得
+    """ファイルパスから「プレイヤーID」毎にスコアを集計
 
     :param filepath: ファイルパス
     :type filepath: str
+    :returns result: 「プレイヤーID」毎にスコアを集計した辞書
+    :rtype: Dict[str, PlayLog]
     """
     result: Dict[str, PlayLog] = {}
 
@@ -133,6 +147,8 @@ def mean_dict(groupby_playlog: Dict[str, PlayLog]) -> Dict[str, int]:
 
     :param groupby_playlog: プレイヤー毎に「スコア」が集計されたプレイログ
     :type groupby_playlog: Dict[str, PlayLog]
+    :returns result: 「プレイヤーID」毎に「平均スコア」を算出した辞書
+    :rtype: Dict[str, int]
     """
     result: Dict[str, int] = {}
 
@@ -144,17 +160,19 @@ def mean_dict(groupby_playlog: Dict[str, PlayLog]) -> Dict[str, int]:
 
     return result
 
-def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, Rank]:
+def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, MeanGroup]:
     """「平均スコア」算出後のプレイログから「平均スコア」によるランキングを算出
 
     :param mean_playlog: プレイヤー毎に「平均スコア」が算出されたプレイログ
     :type mean_playlog: Dict[str, int]
     :param max_rank: 算出するランクの上限値
     :type max_rank: int
+    :returns result: 「平均スコア」によるランク毎にプレイヤー情報をマップした辞書
+    :rtype: Dict[int, MeanGroup]
     """
-    # ランクをキー・ランクオブジェクト（平均スコア・プレイヤーID郡）をバリューとした辞書型
+    # ランクをキー・平均グループオブジェクト（平均スコア・プレイヤーID郡）をバリューとした辞書型
     rank: int = 1
-    result: Dict[int, Rank] = {}
+    result: Dict[int, MeanGroup] = {}
 
     # 「平均スコア」を降順で取得
     desc_mean_playlog = sorted(mean_playlog.items(), reverse=True, key=lambda x: x[1])
@@ -172,32 +190,32 @@ def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, Rank]:
         # 「平均スコア」でグルーピングされた「プレイヤーID」郡をリストで取得
         player_ids = list(map(lambda x: x[0], list(player_id_score)))
         # ランクをキーにランクオブジェクト（平均スコア・プレイヤーID郡）をセット
-        result[rank] = Rank(mean_score, player_ids)
+        result[rank] = MeanGroup(mean_score, player_ids)
         # プレイヤー数分、ランクをインクリメント（同スコアが複数人の場合を考慮）
         rank += len(player_ids)
 
     return result
 
-def print_playlog(rank_playlog: Dict[int, Rank]) -> None:
+def print_playlog(rank_playlog: Dict[int, MeanGroup]) -> None:
     """「平均スコア」によるランキングを標準出力
 
     :param rank_playlog: 「平均スコア」によるランキング
-    :type rank_playlog: Dict[int, Rank]
+    :type rank_playlog: Dict[int, MeanGroup]
     """
     # ヘッダ項目を標準出力
     print("rank,player_id,mean_score")
 
-    for (rank, rank_obj) in rank_playlog.items():
+    for (rank, mean_group_obj) in rank_playlog.items():
         rank: int
-        rank_obj: Rank
+        mean_group_obj: MeanGroup
 
         # 「プレイヤーID」を昇順で取得
-        asc_player_ids = sorted(rank_obj.player_ids)
+        asc_player_ids = sorted(mean_group_obj.player_ids)
         # 同順位のプレイヤーの「ランク」「プレイヤーID」「平均スコア」を出力
         for player_id in asc_player_ids:
             player_id: str
 
-            print(f"{rank},{player_id},{rank_obj.score}")
+            print(f"{rank},{player_id},{mean_group_obj.score}")
 
 
 if __name__ == "__main__":
