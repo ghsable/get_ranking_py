@@ -33,15 +33,12 @@ class PlayLog:
 class Rank:
     """「平均スコア」毎に「プレイヤーID」をグルーピング
 
+    :param mean_score: 平均スコア
+    :type mean_score: int
+    :param player_ids: プレイヤーID群
+    :type player_ids: List[str]
     """
     def __init__(self, mean_score: int, player_ids: List[str]):
-        """
-
-        :param mean_score: 平均スコア
-        :type mean_score: int
-        :param player_ids: プレイヤーID群
-        :type player_ids: List[str]
-        """
         self.score: int = mean_score
         self.player_ids: List[str] = player_ids
 
