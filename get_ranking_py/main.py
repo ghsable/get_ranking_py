@@ -3,6 +3,7 @@
 import sys
 import os
 import itertools
+from itertools import groupby
 import csv
 from csv import DictReader
 from typing import Dict, Iterator, List
@@ -132,8 +133,8 @@ def groupby_csv(filepath: str) -> Dict[str, PlayLog]:
             row: Dict[str, str]
 
             # 「プレイヤーID」「スコア」を取得
-            player_id = row['player_id']
-            score = int(row['score'])
+            player_id: str = row['player_id']
+            score: int = int(row['score'])
             # 初めてヒットしたプレイヤーのプレイログを初期化
             if player_id not in result:
                 result[player_id] = PlayLog()
@@ -175,9 +176,9 @@ def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, MeanGrou
     result: Dict[int, MeanGroup] = {}
 
     # 「平均スコア」を降順で取得
-    desc_mean_playlog = sorted(mean_playlog.items(), reverse=True, key=lambda x: x[1])
+    desc_mean_playlog: list[tuple[str, int]] = sorted(mean_playlog.items(), reverse=True, key=lambda x: x[1])
     # 「平均スコア」毎にグルーピング
-    groupby_mean_playlog = itertools.groupby(desc_mean_playlog, lambda x: x[1])
+    groupby_mean_playlog: groupby[int, tuple[str, int]] = itertools.groupby(desc_mean_playlog, lambda x: x[1])
 
     for mean_score, player_id_score in groupby_mean_playlog:
         mean_score: int
@@ -188,7 +189,7 @@ def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, MeanGrou
             break
 
         # 「平均スコア」でグルーピングされた「プレイヤーID」郡をリストで取得
-        player_ids = list(map(lambda x: x[0], list(player_id_score)))
+        player_ids: list[str] = list(map(lambda x: x[0], list(player_id_score)))
         # ランクをキーにランクオブジェクト（平均スコア・プレイヤーID郡）をセット
         result[rank] = MeanGroup(mean_score, player_ids)
         # プレイヤー数分、ランクをインクリメント（同スコアが複数人の場合を考慮）
@@ -210,7 +211,7 @@ def print_playlog(rank_playlog: Dict[int, MeanGroup]) -> None:
         mean_group_obj: MeanGroup
 
         # 「プレイヤーID」を昇順で取得
-        asc_player_ids = sorted(mean_group_obj.player_ids)
+        asc_player_ids: list[str] = sorted(mean_group_obj.player_ids)
         # 同順位のプレイヤーの「ランク」「プレイヤーID」「平均スコア」を出力
         for player_id in asc_player_ids:
             player_id: str
