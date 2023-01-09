@@ -19,7 +19,7 @@ jobs:
         poetry-version: 1.3.0
 
     - name: View poetry --help
-      run: make shell
+      run: poetry --version
 
 #    - name: Build .rst
 #      uses: ammaraskar/sphinx-action@master
