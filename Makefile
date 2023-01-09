@@ -23,7 +23,7 @@ lint:
 	poetry run pyright $(SRC_FILE)
 
 sphinx-init:
-	poetry run sphinx-apidoc -F -H project -A Helve -V v1.0 -o $(DOCS_DIR) $(SRC_DIR)
+	poetry run sphinx-apidoc -F -H project -A Helve -V v0.1.0 -o $(DOCS_DIR) $(SRC_DIR)
 
 sphinx-build:
 	poetry run sphinx-build $(DOCS_DIR) $(DOCS_DIR)/_build
