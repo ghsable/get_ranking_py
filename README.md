@@ -1,6 +1,10 @@
 # get_ranking_py
 【[株式会社ゆめみ](https://www.yumemi.co.jp/)】[サーバーサイドエンジニア応募者向け模試](https://www.yumemi.co.jp/serverside_recruit)の[回答](https://github.com/ghsable/get_ranking_py/blob/main/get_ranking_py/main.py)です。
 
+## 摘要
+- 本[回答](https://github.com/ghsable/get_ranking_py/blob/main/get_ranking_py/main.py)の目的は、`良い設計・実装とは何か？`を認知するための「叩き台」です。
+- 些細な内容で構いませんので、[Pull requests](https://github.com/ghsable/get_ranking_py/pulls) を募集しております。
+
 ## [回答](https://github.com/ghsable/get_ranking_py/blob/main/get_ranking_py/main.py)の備考
 
 ### 使用言語
