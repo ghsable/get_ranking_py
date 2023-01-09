@@ -27,8 +27,9 @@ jobs:
       run: |
         pip install Sphinx
 
-    - name: Test Run
-      run: sphinx-build ./docs ./docs/_build
+    - name: Build .rst
+      run: |
+        sphinx-build ./docs ./docs/_build
 
 #    - name: Build .rst
 #      uses: ammaraskar/sphinx-action@master
@@ -36,8 +37,8 @@ jobs:
 #        docs-folder: "docs/"
 #        build-command: "sphinx-build --version"
 
-#    - name: Deploy to gh-pages
-#      uses: peaceiris/actions-gh-pages@v3
-#      with:
-#        github_token: ${{ secrets.GITHUB_TOKEN }}
-#        publish_dir: ./docs/_build
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/_build
