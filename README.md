@@ -24,10 +24,10 @@
 - `docstring`・型注釈に注意を払いました。
 
 ## 実行方法
-- [Makefile](https://github.com/ghsable/get_ranking_py/blob/main/Makefile) より。
-  ```shell
-  make run
-  ```
+[Makefile](https://github.com/ghsable/get_ranking_py/blob/main/Makefile) より。
+```shell
+make run
+```
 
 ## 利用者の責務
 本[回答](https://github.com/ghsable/get_ranking_py/blob/main/get_ranking_py/main.py)の利用により発生した利用者の損害全てに対し、いかなる責任をも負わないものとし、損害賠償をする一切の義務はないものとします。
