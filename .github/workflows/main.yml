@@ -18,8 +18,13 @@ jobs:
       with:
         docs-folder: "docs/"
 
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3
+#    - name: Deploy to gh-pages
+#      uses: peaceiris/actions-gh-pages@v3
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        publish_dir: ./docs/_build/html
+
+    - uses: actions/upload-artifact@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_build/html
+        name: DocumentationHTML
+        path: docs/_build/html/
