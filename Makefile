@@ -18,6 +18,7 @@ run_p:
 	poetry run $(SRC_FILE) $(DATA_FILE)
 
 # <--- request: make init ---> #
+
 lint:
 	poetry run pyright $(SRC_FILE)
 
