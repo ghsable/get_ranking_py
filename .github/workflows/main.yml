@@ -23,8 +23,12 @@ jobs:
 #      with:
 #        poetry-version: 1.3.0
 
+    - name: Setup Python modules
+      run: |
+        pip install Sphinx
+
     - name: Test Run
-      run: pip install Sphinx
+      run: sphinx-build ./docs ./docs/_build
 
 #    - name: Build .rst
 #      uses: ammaraskar/sphinx-action@master
