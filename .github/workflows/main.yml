@@ -28,7 +28,7 @@ jobs:
         make init
 
     - name: Build .rst
-    - uses: ammaraskar/sphinx-action@master
+      uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "docs/_build/"
 
