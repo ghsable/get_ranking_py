@@ -10,6 +10,9 @@
 ### 使用言語
 - [Python 3](https://www.python.org/)
 
+### パッケージマネージャー
+- [Poetry](https://python-poetry.org/)
+
 ### リンター
 - [pyright](https://github.com/microsoft/pyright)
 
