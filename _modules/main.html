@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main &#8212; project v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">project v1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">main</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for main</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">from</span> <span class="nn">csv</span> <span class="kn">import</span> <span class="n">DictReader</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span>
+
+<div class="viewcode-block" id="PlayLog"><a class="viewcode-back" href="../main.html#main.PlayLog">[docs]</a><span class="k">class</span> <span class="nc">PlayLog</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;各プレイヤーの「合計スコア」「合計プレイ回数」を保持</span>
+
+<span class="sd">    :param sum_score: 合計スコア（初期値: 0）</span>
+<span class="sd">    :type sum_score: int</span>
+<span class="sd">    :param sum_play: 合計プレイ回数（初期値: 0）</span>
+<span class="sd">    :type sum_play: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sum_score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sum_play</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sum_score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sum_score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sum_play</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sum_play</span>
+
+<div class="viewcode-block" id="PlayLog.add"><a class="viewcode-back" href="../main.html#main.PlayLog.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">play</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;各プレイヤーの「スコア」「プレイ回数」を加算</span>
+
+<span class="sd">        :param score: 加算するスコア</span>
+<span class="sd">        :type score: int</span>
+<span class="sd">        :param play: 加算するプレイ回数（+1）</span>
+<span class="sd">        :type play: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sum_score</span> <span class="o">+=</span> <span class="n">score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sum_play</span> <span class="o">+=</span> <span class="n">play</span></div>
+
+<div class="viewcode-block" id="PlayLog.get_mean"><a class="viewcode-back" href="../main.html#main.PlayLog.get_mean">[docs]</a>    <span class="k">def</span> <span class="nf">get_mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;各プレイヤーの「平均スコア」（四捨五入）を算出</span>
+
+<span class="sd">        :returns round(self.sum_score / self.sum_play): 四捨五入した「平均スコア」</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sum_score</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_play</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="MeanGroup"><a class="viewcode-back" href="../main.html#main.MeanGroup">[docs]</a><span class="k">class</span> <span class="nc">MeanGroup</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;「平均スコア」毎に「プレイヤーID」をグルーピング</span>
+
+<span class="sd">    :param mean_score: 平均スコア</span>
+<span class="sd">    :type mean_score: int</span>
+<span class="sd">    :param player_ids: プレイヤーID群</span>
+<span class="sd">    :type player_ids: list[str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean_score</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">player_ids</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">mean_score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">player_ids</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../main.html#main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># コマンドライン引数のバリデーションチェック</span>
+        <span class="n">validate_argv</span><span class="p">(</span><span class="n">get_args</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># ファイルパスのバリデーションチェック</span>
+        <span class="n">validate_filepath</span><span class="p">(</span><span class="n">get_filepath</span><span class="p">(</span><span class="n">get_args</span><span class="p">()))</span>
+
+        <span class="c1"># ファイルパスから「プレイヤーID」毎にスコアを集計</span>
+        <span class="n">groupby_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">]</span> <span class="o">=</span> <span class="n">groupby_csv</span><span class="p">(</span><span class="n">get_filepath</span><span class="p">(</span><span class="n">get_args</span><span class="p">()))</span>
+
+        <span class="c1"># 集計後のプレイログから「平均スコア」を算出</span>
+        <span class="n">mean_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_dict</span><span class="p">(</span><span class="n">groupby_playlog</span><span class="p">)</span>
+
+        <span class="c1"># 「平均スコア」算出後のプレイログから「平均スコア」によるランキング（10位以内）を算出</span>
+        <span class="n">rank_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank_dict</span><span class="p">(</span><span class="n">mean_playlog</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># 「平均スコア」によるランキングを標準出力</span>
+        <span class="n">print_playlog</span><span class="p">(</span><span class="n">rank_playlog</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_args"><a class="viewcode-back" href="../main.html#main.get_args">[docs]</a><span class="k">def</span> <span class="nf">get_args</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;コマンドライン引数を取得</span>
+
+<span class="sd">    :returns sys.argv: コマンドライン引数</span>
+<span class="sd">    :rtype: list[str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span></div>
+
+<div class="viewcode-block" id="validate_argv"><a class="viewcode-back" href="../main.html#main.validate_argv">[docs]</a><span class="k">def</span> <span class="nf">validate_argv</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">max_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;コマンドライン引数のバリデーションチェック</span>
+
+<span class="sd">    :param args: コマンドライン引数</span>
+<span class="sd">    :type args: list[str]</span>
+<span class="sd">    :param max_length: コマンドライン引数の最大件数</span>
+<span class="sd">    :type max_length: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">max_length</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;more arguments needed&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;too many arguments&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_filepath"><a class="viewcode-back" href="../main.html#main.get_filepath">[docs]</a><span class="k">def</span> <span class="nf">get_filepath</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;コマンドライン引数からファイルパスを取得</span>
+
+<span class="sd">    :param args: コマンドライン引数</span>
+<span class="sd">    :type args: list[str]</span>
+<span class="sd">    :returns args[1]: ファイルパス（コマンドライン引数の第二引数）</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="validate_filepath"><a class="viewcode-back" href="../main.html#main.validate_filepath">[docs]</a><span class="k">def</span> <span class="nf">validate_filepath</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ファイルパスのバリデーションチェック</span>
+
+<span class="sd">    :param filepath: ファイルパス</span>
+<span class="sd">    :type filepath: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;no such file&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filepath</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;.csv&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;not a csv file&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="groupby_csv"><a class="viewcode-back" href="../main.html#main.groupby_csv">[docs]</a><span class="k">def</span> <span class="nf">groupby_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ファイルパスから「プレイヤーID」毎にスコアを集計</span>
+
+<span class="sd">    :param filepath: ファイルパス</span>
+<span class="sd">    :type filepath: str</span>
+<span class="sd">    :returns result: 「プレイヤーID」毎にスコアを集計した辞書</span>
+<span class="sd">    :rtype: Dict[str, PlayLog]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">:</span> <span class="n">DictReader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+            <span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+
+            <span class="c1"># 「プレイヤーID」「スコア」を取得</span>
+            <span class="n">player_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;player_id&#39;</span><span class="p">]</span>
+            <span class="n">score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">])</span>
+            <span class="c1"># 初めてヒットしたプレイヤーのプレイログを初期化</span>
+            <span class="k">if</span> <span class="n">player_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">PlayLog</span><span class="p">()</span>
+            <span class="c1"># プレイヤーのプレイログを加算</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="mean_dict"><a class="viewcode-back" href="../main.html#main.mean_dict">[docs]</a><span class="k">def</span> <span class="nf">mean_dict</span><span class="p">(</span><span class="n">groupby_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;集計後のプレイログから「平均スコア」を算出</span>
+
+<span class="sd">    :param groupby_playlog: プレイヤー毎に「スコア」が集計されたプレイログ</span>
+<span class="sd">    :type groupby_playlog: Dict[str, PlayLog]</span>
+<span class="sd">    :returns result: 「プレイヤーID」毎に「平均スコア」を算出した辞書</span>
+<span class="sd">    :rtype: Dict[str, int]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">player_id</span><span class="p">,</span> <span class="n">playlog_obj</span> <span class="ow">in</span> <span class="n">groupby_playlog</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">player_id</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">playlog_obj</span><span class="p">:</span> <span class="n">PlayLog</span>
+
+        <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlog_obj</span><span class="o">.</span><span class="n">get_mean</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="rank_dict"><a class="viewcode-back" href="../main.html#main.rank_dict">[docs]</a><span class="k">def</span> <span class="nf">rank_dict</span><span class="p">(</span><span class="n">mean_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">max_rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;「平均スコア」算出後のプレイログから「平均スコア」によるランキングを算出</span>
+
+<span class="sd">    :param mean_playlog: プレイヤー毎に「平均スコア」が算出されたプレイログ</span>
+<span class="sd">    :type mean_playlog: Dict[str, int]</span>
+<span class="sd">    :param max_rank: 算出するランクの上限値</span>
+<span class="sd">    :type max_rank: int</span>
+<span class="sd">    :returns result: 「平均スコア」によるランク毎にプレイヤー情報をマップした辞書</span>
+<span class="sd">    :rtype: Dict[int, MeanGroup]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ランクをキー・平均グループオブジェクト（平均スコア・プレイヤーID郡）をバリューとした辞書型</span>
+    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># 「平均スコア」を降順で取得</span>
+    <span class="n">desc_mean_playlog</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mean_playlog</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># 「平均スコア」毎にグルーピング</span>
+    <span class="n">groupby_mean_playlog</span><span class="p">:</span> <span class="n">groupby</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">desc_mean_playlog</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">mean_score</span><span class="p">,</span> <span class="n">player_id_score</span> <span class="ow">in</span> <span class="n">groupby_mean_playlog</span><span class="p">:</span>
+        <span class="n">mean_score</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">player_id_score</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+
+        <span class="c1"># ランクの上限値を超えた場合に抜ける</span>
+        <span class="k">if</span> <span class="n">max_rank</span> <span class="o">&lt;</span> <span class="n">rank</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># 「平均スコア」でグルーピングされた「プレイヤーID」郡をリストで取得</span>
+        <span class="n">player_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">player_id_score</span><span class="p">)))</span>
+        <span class="c1"># ランクをキーにランクオブジェクト（平均スコア・プレイヤーID郡）をセット</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeanGroup</span><span class="p">(</span><span class="n">mean_score</span><span class="p">,</span> <span class="n">player_ids</span><span class="p">)</span>
+        <span class="c1"># プレイヤー数分、ランクをインクリメント（同スコアが複数人の場合を考慮）</span>
+        <span class="n">rank</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">player_ids</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="print_playlog"><a class="viewcode-back" href="../main.html#main.print_playlog">[docs]</a><span class="k">def</span> <span class="nf">print_playlog</span><span class="p">(</span><span class="n">rank_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;「平均スコア」によるランキングを標準出力</span>
+
+<span class="sd">    :param rank_playlog: 「平均スコア」によるランキング</span>
+<span class="sd">    :type rank_playlog: Dict[int, MeanGroup]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ヘッダ項目を標準出力</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rank,player_id,mean_score&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">mean_group_obj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rank_playlog</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">mean_group_obj</span><span class="p">:</span> <span class="n">MeanGroup</span>
+
+        <span class="c1"># 「プレイヤーID」を昇順で取得</span>
+        <span class="n">asc_player_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mean_group_obj</span><span class="o">.</span><span class="n">player_ids</span><span class="p">)</span>
+        <span class="c1"># 同順位のプレイヤーの「ランク」「プレイヤーID」「平均スコア」を出力</span>
+        <span class="k">for</span> <span class="n">player_id</span> <span class="ow">in</span> <span class="n">asc_player_ids</span><span class="p">:</span>
+            <span class="n">player_id</span><span class="p">:</span> <span class="nb">str</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">mean_group_obj</span><span class="o">.</span><span class="n">score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">project v1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">main</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Helve.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>main module &#8212; project v1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to project’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to project’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">project v1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">main module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-main">
+<span id="main-module"></span><h1>main module<a class="headerlink" href="#module-main" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="main.MeanGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">MeanGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main.html#MeanGroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.MeanGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>「平均スコア」毎に「プレイヤーID」をグルーピング</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean_score</strong> (<em>int</em>) – 平均スコア</p></li>
+<li><p><strong>player_ids</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – プレイヤーID群</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="main.PlayLog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">PlayLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sum_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sum_play</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main.html#PlayLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.PlayLog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>各プレイヤーの「合計スコア」「合計プレイ回数」を保持</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sum_score</strong> (<em>int</em>) – 合計スコア（初期値: 0）</p></li>
+<li><p><strong>sum_play</strong> (<em>int</em>) – 合計プレイ回数（初期値: 0）</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="main.PlayLog.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">play</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#PlayLog.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.PlayLog.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>各プレイヤーの「スコア」「プレイ回数」を加算</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score</strong> (<em>int</em>) – 加算するスコア</p></li>
+<li><p><strong>play</strong> (<em>int</em>) – 加算するプレイ回数（+1）</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.PlayLog.get_mean">
+<span class="sig-name descname"><span class="pre">get_mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/main.html#PlayLog.get_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.PlayLog.get_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>各プレイヤーの「平均スコア」（四捨五入）を算出</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns round(self.sum_score / self.sum_play)<span class="colon">:</span></dt>
+<dd class="field-odd"><p>四捨五入した「平均スコア」</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.get_args">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#get_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>コマンドライン引数を取得</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns sys.argv<span class="colon">:</span></dt>
+<dd class="field-odd"><p>コマンドライン引数</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.get_filepath">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/main.html#get_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_filepath" title="Permalink to this definition">¶</a></dt>
+<dd><p>コマンドライン引数からファイルパスを取得</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – コマンドライン引数</p>
+</dd>
+<dt class="field-even">Returns args[1]<span class="colon">:</span></dt>
+<dd class="field-even"><p>ファイルパス（コマンドライン引数の第二引数）</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.groupby_csv">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">groupby_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#main.PlayLog" title="main.PlayLog"><span class="pre">PlayLog</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#groupby_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.groupby_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>ファイルパスから「プレイヤーID」毎にスコアを集計</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – ファイルパス</p>
+</dd>
+<dt class="field-even">Returns result<span class="colon">:</span></dt>
+<dd class="field-even"><p>「プレイヤーID」毎にスコアを集計した辞書</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, <a class="reference internal" href="#main.PlayLog" title="main.PlayLog">PlayLog</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.main">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.mean_dict">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">mean_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby_playlog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#main.PlayLog" title="main.PlayLog"><span class="pre">PlayLog</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#mean_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.mean_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>集計後のプレイログから「平均スコア」を算出</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>groupby_playlog</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#main.PlayLog" title="main.PlayLog"><em>PlayLog</em></a><em>]</em>) – プレイヤー毎に「スコア」が集計されたプレイログ</p>
+</dd>
+<dt class="field-even">Returns result<span class="colon">:</span></dt>
+<dd class="field-even"><p>「プレイヤーID」毎に「平均スコア」を算出した辞書</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.print_playlog">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">print_playlog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank_playlog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#main.MeanGroup" title="main.MeanGroup"><span class="pre">MeanGroup</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#print_playlog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.print_playlog" title="Permalink to this definition">¶</a></dt>
+<dd><p>「平均スコア」によるランキングを標準出力</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rank_playlog</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><a class="reference internal" href="#main.MeanGroup" title="main.MeanGroup"><em>MeanGroup</em></a><em>]</em>) – 「平均スコア」によるランキング</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.rank_dict">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">rank_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_playlog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#main.MeanGroup" title="main.MeanGroup"><span class="pre">MeanGroup</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#rank_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.rank_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>「平均スコア」算出後のプレイログから「平均スコア」によるランキングを算出</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean_playlog</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – プレイヤー毎に「平均スコア」が算出されたプレイログ</p></li>
+<li><p><strong>max_rank</strong> (<em>int</em>) – 算出するランクの上限値</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns result<span class="colon">:</span></dt>
+<dd class="field-even"><p>「平均スコア」によるランク毎にプレイヤー情報をマップした辞書</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[int, <a class="reference internal" href="#main.MeanGroup" title="main.MeanGroup">MeanGroup</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.validate_argv">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">validate_argv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#validate_argv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.validate_argv" title="Permalink to this definition">¶</a></dt>
+<dd><p>コマンドライン引数のバリデーションチェック</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – コマンドライン引数</p></li>
+<li><p><strong>max_length</strong> (<em>int</em>) – コマンドライン引数の最大件数</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="main.validate_filepath">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">validate_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#validate_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.validate_filepath" title="Permalink to this definition">¶</a></dt>
+<dd><p>ファイルパスのバリデーションチェック</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – ファイルパス</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">main module</a><ul>
+<li><a class="reference internal" href="#main.MeanGroup"><code class="docutils literal notranslate"><span class="pre">MeanGroup</span></code></a></li>
+<li><a class="reference internal" href="#main.PlayLog"><code class="docutils literal notranslate"><span class="pre">PlayLog</span></code></a><ul>
+<li><a class="reference internal" href="#main.PlayLog.add"><code class="docutils literal notranslate"><span class="pre">PlayLog.add()</span></code></a></li>
+<li><a class="reference internal" href="#main.PlayLog.get_mean"><code class="docutils literal notranslate"><span class="pre">PlayLog.get_mean()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#main.get_args"><code class="docutils literal notranslate"><span class="pre">get_args()</span></code></a></li>
+<li><a class="reference internal" href="#main.get_filepath"><code class="docutils literal notranslate"><span class="pre">get_filepath()</span></code></a></li>
+<li><a class="reference internal" href="#main.groupby_csv"><code class="docutils literal notranslate"><span class="pre">groupby_csv()</span></code></a></li>
+<li><a class="reference internal" href="#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#main.mean_dict"><code class="docutils literal notranslate"><span class="pre">mean_dict()</span></code></a></li>
+<li><a class="reference internal" href="#main.print_playlog"><code class="docutils literal notranslate"><span class="pre">print_playlog()</span></code></a></li>
+<li><a class="reference internal" href="#main.rank_dict"><code class="docutils literal notranslate"><span class="pre">rank_dict()</span></code></a></li>
+<li><a class="reference internal" href="#main.validate_argv"><code class="docutils literal notranslate"><span class="pre">validate_argv()</span></code></a></li>
+<li><a class="reference internal" href="#main.validate_filepath"><code class="docutils literal notranslate"><span class="pre">validate_filepath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Welcome to project’s documentation!</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/main.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to project’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">project v1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">main module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Helve.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.2.
+    </div>
+  </body>
+</html>
