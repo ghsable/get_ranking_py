@@ -47,7 +47,7 @@ class MeanGroup:
     :param player_ids: プレイヤーID群
     :type player_ids: list[str]
     """
-    def __init__(self, mean_score: int, player_ids):
+    def __init__(self, mean_score: int, player_ids: list[str]):
         self.score: int = mean_score
         self.player_ids: list[str] = player_ids
 
