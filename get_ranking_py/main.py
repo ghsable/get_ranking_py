@@ -6,7 +6,7 @@ import itertools
 from itertools import groupby
 import csv
 from csv import DictReader
-from typing import Dict, Iterator, List
+from typing import Dict, Iterator
 
 class PlayLog:
     """各プレイヤーの「合計スコア」「合計プレイ回数」を保持
@@ -45,11 +45,11 @@ class MeanGroup:
     :param mean_score: 平均スコア
     :type mean_score: int
     :param player_ids: プレイヤーID群
-    :type player_ids: List[str]
+    :type player_ids: list[str]
     """
-    def __init__(self, mean_score: int, player_ids: List[str]):
+    def __init__(self, mean_score: int, player_ids: list[str]):
         self.score: int = mean_score
-        self.player_ids: List[str] = player_ids
+        self.player_ids: list[str] = player_ids
 
 
 def main() -> None:
