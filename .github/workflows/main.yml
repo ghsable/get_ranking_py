@@ -18,11 +18,6 @@ jobs:
       with:
         python-version: 3.11.0
 
-    - name: Setup Poetry
-      uses: abatilo/actions-poetry@v2
-      with:
-        poetry-version: 1.3.0
-
     - name: Build .rst
       uses: ammaraskar/sphinx-action@master
       with:
