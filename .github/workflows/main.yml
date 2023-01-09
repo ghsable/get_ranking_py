@@ -16,7 +16,7 @@ jobs:
     - name: Build .rst
       uses: ammaraskar/sphinx-action@master
       with:
-#        docs-folder: "docs/"
+        docs-folder: "docs/"
         build-command: "sphinx-build -b html -nW --keep-going . _build/html"
 
     - name: Deploy to gh-pages
