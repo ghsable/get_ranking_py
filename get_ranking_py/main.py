@@ -2,27 +2,12 @@
 
 import sys
 import os
+import csv
 from argparse import ArgumentParser, Namespace
 from collections import defaultdict
-import itertools
-from itertools import groupby
-import csv
-from typing import List, Dict, Iterator
+from typing import List, Dict, Tuple
 
-class MeanGroup:
-    """「平均スコア」毎に「プレイヤーID」をグルーピング
-
-    :param mean_score: 平均スコア
-    :type mean_score: int
-    :param player_ids: プレイヤーID群
-    :type player_ids: list[str]
-    """
-    def __init__(self, mean_score: int, player_ids: list[str]):
-        self.score: int = mean_score
-        self.player_ids: list[str] = player_ids
-
-
-def main() -> None:
+def main():
     try:
         # コマンドライン引数からcsvファイルパスを取得
         csv_file_path: str = get_file_path()
@@ -33,8 +18,8 @@ def main() -> None:
         # 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出
         avarage_scores: Dict[str, int] = get_average(scores)
 
-        # 「平均スコア」算出後のプレイログから「平均スコア」によるランキング（10位以内）を算出
-        rank_playlog: Dict[int, MeanGroup] = rank_dict(avarage_scores, 10)
+        # 「プレイヤーID」毎の「平均スコア」からランキング（10位以内）を算出
+        ranked_average = get_ranked_average(avarage_scores, 10)
 
         # 「平均スコア」によるランキングを標準出力
         print_playlog(rank_playlog)
@@ -87,46 +72,33 @@ def get_average(scores: Dict[str, List[int]]) -> Dict[str, int]:
     :returns result: 「プレイヤーID」毎の「平均スコア」を算出した辞書
     :rtype: Dict[str, int]
     """
-    avg_scores: Dict[str, int] = {}
+    result: Dict[str, int] = {}
 
     for player_id, (total_score, count) in scores.items():
-        avg_scores[player_id] = round(total_score / count)
+        result[player_id] = round(total_score / count)
 
-    return avg_scores
+    return result
 
-def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, MeanGroup]:
-    """「平均スコア」算出後のプレイログから「平均スコア」によるランキングを算出
+def get_ranked_average(avg_scores: Dict[str, int], rank_limit: int) -> List[Tuple[int, str, int]]:
+    """「プレイヤーID」毎の「平均スコア」からランキング（10位以内）を算出
 
-    :param mean_playlog: プレイヤー毎に「平均スコア」が算出されたプレイログ
-    :type mean_playlog: Dict[str, int]
+    :param avg_scores: 「プレイヤーID」毎の「平均スコア」を算出した辞書
+    :type avg_scores: Dict[str, int]
     :param max_rank: 算出するランクの上限値
     :type max_rank: int
-    :returns result: 「平均スコア」によるランク毎にプレイヤー情報をマップした辞書
-    :rtype: Dict[int, MeanGroup]
+    :returns result: 「平均スコア」によるランキングをプレイヤー単位で格納したタプル
+    :rtype: List[Tuple[int, str, int]]
     """
-    # ランクをキー・平均グループオブジェクト（平均スコア・プレイヤーID郡）をバリューとした辞書型
+    result: List[Tuple[int, str, int]] = []
     rank: int = 1
-    result: Dict[int, MeanGroup] = {}
+    ranked_scores: List[Tuple[str, int]] = sorted(avg_scores.items(), key=lambda x: x[1], reverse=True)
 
-    # 「平均スコア」を降順で取得
-    desc_mean_playlog: list[tuple[str, int]] = sorted(mean_playlog.items(), reverse=True, key=lambda x: x[1])
-    # 「平均スコア」毎にグルーピング
-    groupby_mean_playlog: groupby[int, tuple[str, int]] = itertools.groupby(desc_mean_playlog, lambda x: x[1])
-
-    for mean_score, player_id_score in groupby_mean_playlog:
-        mean_score: int
-        player_id_score: Iterator[tuple[str, int]]
-
-        # ランクの上限値を超えた場合に抜ける
-        if max_rank < rank:
+    for i, (player_id, avg_score) in enumerate(ranked_scores):
+        if i > 0 and avg_score < ranked_scores[i - 1][1]:
+            rank = i + 1
+        if rank_limit < rank:  # ランクの上限値を超えた場合に抜ける
             break
-
-        # 「平均スコア」でグルーピングされた「プレイヤーID」郡をリストで取得
-        player_ids: list[str] = list(map(lambda x: x[0], list(player_id_score)))
-        # ランクをキーにランクオブジェクト（平均スコア・プレイヤーID郡）をセット
-        result[rank] = MeanGroup(mean_score, player_ids)
-        # プレイヤー数分、ランクをインクリメント（同スコアが複数人の場合を考慮）
-        rank += len(player_ids)
+        result.append((rank, player_id, avg_score))
 
     return result
 
