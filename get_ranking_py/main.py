@@ -7,7 +7,7 @@ import itertools
 from itertools import groupby
 import csv
 from csv import DictReader
-from typing import Union, Dict, Iterator
+from typing import Dict, Iterator
 
 class PlayLog:
     """各プレイヤーの「合計スコア」「合計プレイ回数」を保持
