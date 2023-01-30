@@ -84,7 +84,7 @@ def get_average(scores: Dict[str, List[int]]) -> Dict[str, int]:
 
     :param scores: 「プレイヤーID」毎に「スコア」「プレイ」回数を集計した辞書
     :type scores: Dict[str, List[int]]
-    :returns result: 「プレイヤーID」毎の平均スコアを算出した辞書
+    :returns result: 「プレイヤーID」毎の「平均スコア」を算出した辞書
     :rtype: Dict[str, int]
     """
     avg_scores: Dict[str, int] = {}
