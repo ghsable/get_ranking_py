@@ -3,7 +3,7 @@
 import sys
 import os
 from argparse import ArgumentParser, Namespace
-import pandas as pd
+from collections import defaultdict
 import itertools
 from itertools import groupby
 import csv
