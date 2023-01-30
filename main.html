@@ -57,47 +57,21 @@
 </dl>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="main.PlayLog">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">PlayLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sum_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sum_play</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main.html#PlayLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.PlayLog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>各プレイヤーの「合計スコア」「合計プレイ回数」を保持</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="main.get_average">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#get_average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sum_score</strong> (<em>int</em>) – 合計スコア（初期値: 0）</p></li>
-<li><p><strong>sum_play</strong> (<em>int</em>) – 合計プレイ回数（初期値: 0）</p></li>
-</ul>
+<dd class="field-odd"><p><strong>scores</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – 「プレイヤーID」毎に「スコア」「プレイ」回数を集計した辞書</p>
+</dd>
+<dt class="field-even">Returns result<span class="colon">:</span></dt>
+<dd class="field-even"><p>「プレイヤーID」毎の平均スコアを算出した辞書</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, int]</p>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="main.PlayLog.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">play</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#PlayLog.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.PlayLog.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>各プレイヤーの「スコア」「プレイ回数」を加算</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>score</strong> (<em>int</em>) – 加算するスコア</p></li>
-<li><p><strong>play</strong> (<em>int</em>) – 加算するプレイ回数（+1）</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="main.PlayLog.get_mean">
-<span class="sig-name descname"><span class="pre">get_mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/main.html#PlayLog.get_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.PlayLog.get_mean" title="Permalink to this definition">¶</a></dt>
-<dd><p>各プレイヤーの「平均スコア」（四捨五入）を算出</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns round(self.sum_score / self.sum_play)<span class="colon">:</span></dt>
-<dd class="field-odd"><p>四捨五入した「平均スコア」</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
@@ -115,43 +89,9 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="main.groupby_csv">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">groupby_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#main.PlayLog" title="main.PlayLog"><span class="pre">PlayLog</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#groupby_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.groupby_csv" title="Permalink to this definition">¶</a></dt>
-<dd><p>ファイルパスから「プレイヤーID」毎にスコアを集計</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – ファイルパス</p>
-</dd>
-<dt class="field-even">Returns result<span class="colon">:</span></dt>
-<dd class="field-even"><p>「プレイヤーID」毎にスコアを集計した辞書</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[str, <a class="reference internal" href="#main.PlayLog" title="main.PlayLog">PlayLog</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="main.main">
 <span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="main.mean_dict">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">mean_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby_playlog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#main.PlayLog" title="main.PlayLog"><span class="pre">PlayLog</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#mean_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.mean_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>集計後のプレイログから「平均スコア」を算出</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>groupby_playlog</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#main.PlayLog" title="main.PlayLog"><em>PlayLog</em></a><em>]</em>) – プレイヤー毎に「スコア」が集計されたプレイログ</p>
-</dd>
-<dt class="field-even">Returns result<span class="colon">:</span></dt>
-<dd class="field-even"><p>「プレイヤーID」毎に「平均スコア」を算出した辞書</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[str, int]</p>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="main.print_playlog">
@@ -184,6 +124,23 @@
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="main.summarize_csv_scores">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">summarize_csv_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#summarize_csv_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.summarize_csv_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – csvファイルパス</p>
+</dd>
+<dt class="field-even">Returns result<span class="colon">:</span></dt>
+<dd class="field-even"><p>「プレイヤーID」毎に「スコア」「プレイ回数」を集計した辞書</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -198,17 +155,12 @@
     <ul>
 <li><a class="reference internal" href="#">main module</a><ul>
 <li><a class="reference internal" href="#main.MeanGroup"><code class="docutils literal notranslate"><span class="pre">MeanGroup</span></code></a></li>
-<li><a class="reference internal" href="#main.PlayLog"><code class="docutils literal notranslate"><span class="pre">PlayLog</span></code></a><ul>
-<li><a class="reference internal" href="#main.PlayLog.add"><code class="docutils literal notranslate"><span class="pre">PlayLog.add()</span></code></a></li>
-<li><a class="reference internal" href="#main.PlayLog.get_mean"><code class="docutils literal notranslate"><span class="pre">PlayLog.get_mean()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#main.get_average"><code class="docutils literal notranslate"><span class="pre">get_average()</span></code></a></li>
 <li><a class="reference internal" href="#main.get_file_path"><code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code></a></li>
-<li><a class="reference internal" href="#main.groupby_csv"><code class="docutils literal notranslate"><span class="pre">groupby_csv()</span></code></a></li>
 <li><a class="reference internal" href="#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li><a class="reference internal" href="#main.mean_dict"><code class="docutils literal notranslate"><span class="pre">mean_dict()</span></code></a></li>
 <li><a class="reference internal" href="#main.print_playlog"><code class="docutils literal notranslate"><span class="pre">print_playlog()</span></code></a></li>
 <li><a class="reference internal" href="#main.rank_dict"><code class="docutils literal notranslate"><span class="pre">rank_dict()</span></code></a></li>
+<li><a class="reference internal" href="#main.summarize_csv_scores"><code class="docutils literal notranslate"><span class="pre">summarize_csv_scores()</span></code></a></li>
 </ul>
 </li>
 </ul>

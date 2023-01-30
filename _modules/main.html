@@ -46,39 +46,7 @@
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
 <span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">from</span> <span class="nn">csv</span> <span class="kn">import</span> <span class="n">DictReader</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span>
-
-<div class="viewcode-block" id="PlayLog"><a class="viewcode-back" href="../main.html#main.PlayLog">[docs]</a><span class="k">class</span> <span class="nc">PlayLog</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;各プレイヤーの「合計スコア」「合計プレイ回数」を保持</span>
-
-<span class="sd">    :param sum_score: 合計スコア（初期値: 0）</span>
-<span class="sd">    :type sum_score: int</span>
-<span class="sd">    :param sum_play: 合計プレイ回数（初期値: 0）</span>
-<span class="sd">    :type sum_play: int</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sum_score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sum_play</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sum_score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sum_score</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sum_play</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sum_play</span>
-
-<div class="viewcode-block" id="PlayLog.add"><a class="viewcode-back" href="../main.html#main.PlayLog.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">play</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;各プレイヤーの「スコア」「プレイ回数」を加算</span>
-
-<span class="sd">        :param score: 加算するスコア</span>
-<span class="sd">        :type score: int</span>
-<span class="sd">        :param play: 加算するプレイ回数（+1）</span>
-<span class="sd">        :type play: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sum_score</span> <span class="o">+=</span> <span class="n">score</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sum_play</span> <span class="o">+=</span> <span class="n">play</span></div>
-
-<div class="viewcode-block" id="PlayLog.get_mean"><a class="viewcode-back" href="../main.html#main.PlayLog.get_mean">[docs]</a>    <span class="k">def</span> <span class="nf">get_mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;各プレイヤーの「平均スコア」（四捨五入）を算出</span>
-
-<span class="sd">        :returns round(self.sum_score / self.sum_play): 四捨五入した「平均スコア」</span>
-<span class="sd">        :rtype: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sum_score</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_play</span><span class="p">)</span></div></div>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span>
 
 <div class="viewcode-block" id="MeanGroup"><a class="viewcode-back" href="../main.html#main.MeanGroup">[docs]</a><span class="k">class</span> <span class="nc">MeanGroup</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;「平均スコア」毎に「プレイヤーID」をグルーピング</span>
@@ -96,16 +64,16 @@
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../main.html#main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># コマンドライン引数からcsvファイルパスを取得</span>
-        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">get_file_path</span><span class="p">()</span>
+        <span class="n">csv_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">get_file_path</span><span class="p">()</span>
 
-        <span class="c1"># ファイルパスから「プレイヤーID」毎にスコアを集計</span>
-        <span class="n">groupby_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">]</span> <span class="o">=</span> <span class="n">groupby_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="c1"># csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計</span>
+        <span class="n">scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">summarize_csv_scores</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">)</span>
 
-        <span class="c1"># 集計後のプレイログから「平均スコア」を算出</span>
-        <span class="n">mean_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_dict</span><span class="p">(</span><span class="n">groupby_playlog</span><span class="p">)</span>
+        <span class="c1"># 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出</span>
+        <span class="n">avarage_scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_average</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 
         <span class="c1"># 「平均スコア」算出後のプレイログから「平均スコア」によるランキング（10位以内）を算出</span>
-        <span class="n">rank_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank_dict</span><span class="p">(</span><span class="n">mean_playlog</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">rank_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank_dict</span><span class="p">(</span><span class="n">avarage_scores</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
         <span class="c1"># 「平均スコア」によるランキングを標準出力</span>
         <span class="n">print_playlog</span><span class="p">(</span><span class="n">rank_playlog</span><span class="p">)</span>
@@ -130,49 +98,40 @@
 
     <span class="k">return</span> <span class="n">file_path</span></div>
 
-<div class="viewcode-block" id="groupby_csv"><a class="viewcode-back" href="../main.html#main.groupby_csv">[docs]</a><span class="k">def</span> <span class="nf">groupby_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;ファイルパスから「プレイヤーID」毎にスコアを集計</span>
+<div class="viewcode-block" id="summarize_csv_scores"><a class="viewcode-back" href="../main.html#main.summarize_csv_scores">[docs]</a><span class="k">def</span> <span class="nf">summarize_csv_scores</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計</span>
 
-<span class="sd">    :param filepath: ファイルパス</span>
-<span class="sd">    :type filepath: str</span>
-<span class="sd">    :returns result: 「プレイヤーID」毎にスコアを集計した辞書</span>
-<span class="sd">    :rtype: Dict[str, PlayLog]</span>
+<span class="sd">    :param file_path: csvファイルパス</span>
+<span class="sd">    :type file_path: str</span>
+<span class="sd">    :returns result: 「プレイヤーID」毎に「スコア」「プレイ回数」を集計した辞書</span>
+<span class="sd">    :rtype: Dict[str, List[int]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-        <span class="n">reader</span><span class="p">:</span> <span class="n">DictReader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  <span class="c1"># headerの読み飛ばし</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
-            <span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
-
-            <span class="c1"># 「プレイヤーID」「スコア」を取得</span>
-            <span class="n">player_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;player_id&#39;</span><span class="p">]</span>
-            <span class="n">score</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">])</span>
-            <span class="c1"># 初めてヒットしたプレイヤーのプレイログを初期化</span>
-            <span class="k">if</span> <span class="n">player_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-                <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">PlayLog</span><span class="p">()</span>
-            <span class="c1"># プレイヤーのプレイログを加算</span>
-            <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="n">create_timestamp</span><span class="p">,</span> <span class="n">player_id</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">row</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="mean_dict"><a class="viewcode-back" href="../main.html#main.mean_dict">[docs]</a><span class="k">def</span> <span class="nf">mean_dict</span><span class="p">(</span><span class="n">groupby_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlayLog</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;集計後のプレイログから「平均スコア」を算出</span>
+<div class="viewcode-block" id="get_average"><a class="viewcode-back" href="../main.html#main.get_average">[docs]</a><span class="k">def</span> <span class="nf">get_average</span><span class="p">(</span><span class="n">scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出</span>
 
-<span class="sd">    :param groupby_playlog: プレイヤー毎に「スコア」が集計されたプレイログ</span>
-<span class="sd">    :type groupby_playlog: Dict[str, PlayLog]</span>
-<span class="sd">    :returns result: 「プレイヤーID」毎に「平均スコア」を算出した辞書</span>
+<span class="sd">    :param scores: 「プレイヤーID」毎に「スコア」「プレイ」回数を集計した辞書</span>
+<span class="sd">    :type scores: Dict[str, List[int]]</span>
+<span class="sd">    :returns result: 「プレイヤーID」毎の平均スコアを算出した辞書</span>
 <span class="sd">    :rtype: Dict[str, int]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">avg_scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">for</span> <span class="n">player_id</span><span class="p">,</span> <span class="n">playlog_obj</span> <span class="ow">in</span> <span class="n">groupby_playlog</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">player_id</span><span class="p">:</span> <span class="nb">str</span>
-        <span class="n">playlog_obj</span><span class="p">:</span> <span class="n">PlayLog</span>
+    <span class="k">for</span> <span class="n">player_id</span><span class="p">,</span> <span class="p">(</span><span class="n">total_score</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="ow">in</span> <span class="n">scores</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">avg_scores</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">total_score</span> <span class="o">/</span> <span class="n">count</span><span class="p">)</span>
 
-        <span class="n">result</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">playlog_obj</span><span class="o">.</span><span class="n">get_mean</span><span class="p">()</span>
-
-    <span class="k">return</span> <span class="n">result</span></div>
+    <span class="k">return</span> <span class="n">avg_scores</span></div>
 
 <div class="viewcode-block" id="rank_dict"><a class="viewcode-back" href="../main.html#main.rank_dict">[docs]</a><span class="k">def</span> <span class="nf">rank_dict</span><span class="p">(</span><span class="n">mean_playlog</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">max_rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">MeanGroup</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;「平均スコア」算出後のプレイログから「平均スコア」によるランキングを算出</span>
