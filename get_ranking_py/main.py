@@ -7,39 +7,7 @@ from collections import defaultdict
 import itertools
 from itertools import groupby
 import csv
-from csv import DictReader
-from typing import Dict, Iterator
-
-class PlayLog:
-    """各プレイヤーの「合計スコア」「合計プレイ回数」を保持
-
-    :param sum_score: 合計スコア（初期値: 0）
-    :type sum_score: int
-    :param sum_play: 合計プレイ回数（初期値: 0）
-    :type sum_play: int
-    """
-    def __init__(self, sum_score: int = 0, sum_play: int = 0) -> None:
-        self.sum_score: int = sum_score
-        self.sum_play: int = sum_play
-
-    def add(self, score: int, play: int = 1) -> None:
-        """各プレイヤーの「スコア」「プレイ回数」を加算
-
-        :param score: 加算するスコア
-        :type score: int
-        :param play: 加算するプレイ回数（+1）
-        :type play: int
-        """
-        self.sum_score += score
-        self.sum_play += play
-
-    def get_mean(self) -> int:
-        """各プレイヤーの「平均スコア」（四捨五入）を算出
-
-        :returns round(self.sum_score / self.sum_play): 四捨五入した「平均スコア」
-        :rtype: int
-        """
-        return round(self.sum_score / self.sum_play)
+from typing import List, Dict, Iterator
 
 class MeanGroup:
     """「平均スコア」毎に「プレイヤーID」をグルーピング
@@ -57,16 +25,16 @@ class MeanGroup:
 def main() -> None:
     try:
         # コマンドライン引数からcsvファイルパスを取得
-        file_path: str = get_file_path()
+        csv_file_path: str = get_file_path()
 
-        # ファイルパスから「プレイヤーID」毎にスコアを集計
-        groupby_playlog: Dict[str, PlayLog] = groupby_csv(file_path)
+        # csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計
+        scores: Dict[str, List[int]] = summarize_csv_scores(csv_file_path)
 
-        # 集計後のプレイログから「平均スコア」を算出
-        mean_playlog: Dict[str, int] = mean_dict(groupby_playlog)
+        # 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出
+        avarage_scores: Dict[str, int] = get_average(scores)
 
         # 「平均スコア」算出後のプレイログから「平均スコア」によるランキング（10位以内）を算出
-        rank_playlog: Dict[int, MeanGroup] = rank_dict(mean_playlog, 10)
+        rank_playlog: Dict[int, MeanGroup] = rank_dict(avarage_scores, 10)
 
         # 「平均スコア」によるランキングを標準出力
         print_playlog(rank_playlog)
@@ -91,49 +59,40 @@ def get_file_path() -> str:
 
     return file_path
 
-def groupby_csv(filepath: str) -> Dict[str, PlayLog]:
-    """ファイルパスから「プレイヤーID」毎にスコアを集計
+def summarize_csv_scores(file_path: str) -> Dict[str, List[int]]:
+    """csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計
 
-    :param filepath: ファイルパス
-    :type filepath: str
-    :returns result: 「プレイヤーID」毎にスコアを集計した辞書
-    :rtype: Dict[str, PlayLog]
+    :param file_path: csvファイルパス
+    :type file_path: str
+    :returns result: 「プレイヤーID」毎に「スコア」「プレイ回数」を集計した辞書
+    :rtype: Dict[str, List[int]]
     """
-    result: Dict[str, PlayLog] = {}
+    result: Dict[str, List[int]] = defaultdict(lambda: [0, 0])
 
-    with open(filepath, 'r') as csv_file:
-        reader: DictReader = csv.DictReader(csv_file, lineterminator="\n")
+    with open(file_path, 'r') as f:
+        reader = csv.reader(f)
+        next(reader)  # headerの読み飛ばし
         for row in reader:
-            row: Dict[str, str]
-
-            # 「プレイヤーID」「スコア」を取得
-            player_id: str = row['player_id']
-            score: int = int(row['score'])
-            # 初めてヒットしたプレイヤーのプレイログを初期化
-            if player_id not in result:
-                result[player_id] = PlayLog()
-            # プレイヤーのプレイログを加算
-            result[player_id].add(score)
+            create_timestamp, player_id, score = row
+            result[player_id][0] += int(score)
+            result[player_id][1] += 1
 
     return result
 
-def mean_dict(groupby_playlog: Dict[str, PlayLog]) -> Dict[str, int]:
-    """集計後のプレイログから「平均スコア」を算出
+def get_average(scores: Dict[str, List[int]]) -> Dict[str, int]:
+    """集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出
 
-    :param groupby_playlog: プレイヤー毎に「スコア」が集計されたプレイログ
-    :type groupby_playlog: Dict[str, PlayLog]
-    :returns result: 「プレイヤーID」毎に「平均スコア」を算出した辞書
+    :param scores: 「プレイヤーID」毎に「スコア」「プレイ」回数を集計した辞書
+    :type scores: Dict[str, List[int]]
+    :returns result: 「プレイヤーID」毎の平均スコアを算出した辞書
     :rtype: Dict[str, int]
     """
-    result: Dict[str, int] = {}
+    avg_scores: Dict[str, int] = {}
 
-    for player_id, playlog_obj in groupby_playlog.items():
-        player_id: str
-        playlog_obj: PlayLog
+    for player_id, (total_score, count) in scores.items():
+        avg_scores[player_id] = round(total_score / count)
 
-        result[player_id] = playlog_obj.get_mean()
-
-    return result
+    return avg_scores
 
 def rank_dict(mean_playlog: Dict[str, int], max_rank: int) -> Dict[int, MeanGroup]:
     """「平均スコア」算出後のプレイログから「平均スコア」によるランキングを算出
