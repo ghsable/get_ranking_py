@@ -3,7 +3,6 @@
 
 ## 摘要
 - 本[回答](https://github.com/ghsable/get_ranking_py/blob/main/get_ranking_py/main.py)の目的は、`良い設計・実装とは何か？`を認知するための「叩き台」です。
-- 些細な内容で構いませんので、[Pull requests](https://github.com/ghsable/get_ranking_py/pulls) を募集しております。
 
 ## [回答](https://github.com/ghsable/get_ranking_py/blob/main/get_ranking_py/main.py)の備考
 
