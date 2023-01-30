@@ -75,7 +75,7 @@ def main() -> None:
 
 
 def get_file_path() -> str:
-    """コマンドライン引数からファイルパスを取得
+    """コマンドライン引数からcsvファイルパスを取得
 
     :returns file_path: csvファイルパス
     :rtype: str
