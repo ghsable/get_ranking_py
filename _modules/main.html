@@ -144,7 +144,7 @@
 <div class="viewcode-block" id="print_ranked_average"><a class="viewcode-back" href="../main.html#main.print_ranked_average">[docs]</a><span class="k">def</span> <span class="nf">print_ranked_average</span><span class="p">(</span><span class="n">ranked_average</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;「平均スコア」によるランキングを標準出力</span>
 
-<span class="sd">    :param ranked_average: 「平均スコア」によるランキングをプレイヤー単位で格納したタプル</span>
+<span class="sd">    :param ranked_average: 「平均スコア」によるランキング（降順）をプレイヤー単位（昇順）で格納したタプル</span>
 <span class="sd">    :type ranked_average: List[Tuple[int, str, int]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rank,player_id,mean_score&quot;</span><span class="p">)</span>  <span class="c1"># ヘッダ項目を標準出力</span>
