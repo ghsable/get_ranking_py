@@ -84,8 +84,8 @@ def get_ranked_average(avg_scores: Dict[str, int], rank_limit: int) -> List[Tupl
 
     :param avg_scores: 「プレイヤーID」毎の「平均スコア」を算出した辞書
     :type avg_scores: Dict[str, int]
-    :param max_rank: 算出するランクの上限値
-    :type max_rank: int
+    :param rank_limit: 算出するランクの上限値
+    :type rank_limit: int
     :returns result: 「平均スコア」によるランキング（降順）をプレイヤー単位（昇順）で格納したタプル
     :rtype: List[Tuple[int, str, int]]
     """
