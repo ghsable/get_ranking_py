@@ -16,10 +16,10 @@ def main():
         scores: Dict[str, List[int]] = summarize_csv_scores(csv_file_path)
 
         # 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出
-        avarage_scores: Dict[str, int] = get_average(scores)
+        average_scores: Dict[str, int] = get_average(scores)
 
         # 「プレイヤーID」毎の「平均スコア」からランキング（10位以内）を算出
-        ranked_average = get_ranked_average(avarage_scores, 10)
+        ranked_average = get_ranked_average(average_scores, 10)
 
         # 「平均スコア」によるランキングを標準出力
         print_ranked_average(ranked_average)
