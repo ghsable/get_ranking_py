@@ -55,10 +55,10 @@
         <span class="n">scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">summarize_csv_scores</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">)</span>
 
         <span class="c1"># 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出</span>
-        <span class="n">avarage_scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_average</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">average_scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_average</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 
         <span class="c1"># 「プレイヤーID」毎の「平均スコア」からランキング（10位以内）を算出</span>
-        <span class="n">ranked_average</span> <span class="o">=</span> <span class="n">get_ranked_average</span><span class="p">(</span><span class="n">avarage_scores</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">ranked_average</span> <span class="o">=</span> <span class="n">get_ranked_average</span><span class="p">(</span><span class="n">average_scores</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
         <span class="c1"># 「平均スコア」によるランキングを標準出力</span>
         <span class="n">print_ranked_average</span><span class="p">(</span><span class="n">ranked_average</span><span class="p">)</span>
