@@ -56,7 +56,7 @@ class MeanGroup:
 def main() -> None:
     try:
         # コマンドライン引数からcsvファイルパスを取得
-        file_path = get_file_path()
+        file_path: str = get_file_path()
 
         # ファイルパスから「プレイヤーID」毎にスコアを集計
         groupby_playlog: Dict[str, PlayLog] = groupby_csv(file_path)
@@ -80,13 +80,13 @@ def get_file_path() -> str:
     :returns file_path: csvファイルパス
     :rtype: str
     """
-    parser:ArgumentParser = ArgumentParser()
+    parser: ArgumentParser = ArgumentParser()
     parser.add_argument("file", help="csvファイルのパス")
-    args:Namespace = parser.parse_args()
-    file_path:str = args.file
+    args: Namespace = parser.parse_args()
+    file_path: str = args.file
 
     if not file_path.endswith('.csv'):
-        raise Exception("Error: 入力されたファイルはcsvファイルではありません")
+        raise Exception("Error: 入力されたファイルはcsvファイルではありません。")
 
     return file_path
 
