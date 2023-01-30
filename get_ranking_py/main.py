@@ -10,7 +10,7 @@ from typing import List, Dict, Tuple
 def main():
     try:
         # コマンドライン引数からcsvファイルパスを取得
-        csv_file_path: str = get_file_path()
+        csv_file_path: str = get_csv_file_path()
 
         # csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計
         scores: Dict[str, List[int]] = summarize_csv_scores(csv_file_path)
@@ -28,33 +28,33 @@ def main():
         exit(1)
 
 
-def get_file_path() -> str:
+def get_csv_file_path() -> str:
     """コマンドライン引数からcsvファイルパスを取得
 
-    :returns file_path: csvファイルパス
+    :returns csv_file_path: csvファイルパス
     :rtype: str
     """
     parser: ArgumentParser = ArgumentParser()
     parser.add_argument("file", help="csvファイルのパス")
     args: Namespace = parser.parse_args()
-    file_path: str = args.file
+    csv_file_path: str = args.file
 
-    if not file_path.endswith('.csv'):
+    if not csv_file_path.endswith('.csv'):
         raise Exception("Error: 入力されたファイルはcsvファイルではありません。")
 
-    return file_path
+    return csv_file_path
 
-def summarize_csv_scores(file_path: str) -> Dict[str, List[int]]:
+def summarize_csv_scores(csv_file_path: str) -> Dict[str, List[int]]:
     """csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計
 
-    :param file_path: csvファイルパス
-    :type file_path: str
+    :param csv_file_path: csvファイルパス
+    :type csv_file_path: str
     :returns result: 「プレイヤーID」毎に「スコア」「プレイ回数」を集計した辞書
     :rtype: Dict[str, List[int]]
     """
     result: Dict[str, List[int]] = defaultdict(lambda: [0, 0])
 
-    with open(file_path, 'r') as f:
+    with open(csv_file_path, 'r') as f:
         reader = csv.reader(f)
         next(reader)  # headerの読み飛ばし
         for row in reader:
