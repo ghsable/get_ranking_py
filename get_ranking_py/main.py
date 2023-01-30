@@ -22,7 +22,7 @@ def main():
         ranked_average = get_ranked_average(avarage_scores, 10)
 
         # 「平均スコア」によるランキングを標準出力
-        print_playlog(rank_playlog)
+        print_ranked_average(ranked_average)
     except Exception as e:
         print(e)
         exit(1)
@@ -102,26 +102,16 @@ def get_ranked_average(avg_scores: Dict[str, int], rank_limit: int) -> List[Tupl
 
     return result
 
-def print_playlog(rank_playlog: Dict[int, MeanGroup]) -> None:
+def print_ranked_average(ranked_average: List[Tuple[int, str, int]]) -> None:
     """「平均スコア」によるランキングを標準出力
 
-    :param rank_playlog: 「平均スコア」によるランキング
-    :type rank_playlog: Dict[int, MeanGroup]
+    :param ranked_average: 「平均スコア」によるランキングをプレイヤー単位で格納したタプル
+    :type ranked_average: List[Tuple[int, str, int]]
     """
-    # ヘッダ項目を標準出力
-    print("rank,player_id,mean_score")
+    print("rank,player_id,mean_score")  # ヘッダ項目を標準出力
 
-    for (rank, mean_group_obj) in rank_playlog.items():
-        rank: int
-        mean_group_obj: MeanGroup
-
-        # 「プレイヤーID」を昇順で取得
-        asc_player_ids: list[str] = sorted(mean_group_obj.player_ids)
-        # 同順位のプレイヤーの「ランク」「プレイヤーID」「平均スコア」を出力
-        for player_id in asc_player_ids:
-            player_id: str
-
-            print(f"{rank},{player_id},{mean_group_obj.score}")
+    for rank, player_id, avg_score in ranked_average:
+        print(f"{rank},{player_id},{avg_score}")
 
 
 if __name__ == "__main__":
