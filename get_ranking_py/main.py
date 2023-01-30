@@ -2,11 +2,12 @@
 
 import sys
 import os
+from argparse import ArgumentParser, Namespace
 import itertools
 from itertools import groupby
 import csv
 from csv import DictReader
-from typing import Dict, Iterator
+from typing import Union, Dict, Iterator
 
 class PlayLog:
     """各プレイヤーの「合計スコア」「合計プレイ回数」を保持
@@ -54,14 +55,11 @@ class MeanGroup:
 
 def main() -> None:
     try:
-        # コマンドライン引数のバリデーションチェック
-        validate_argv(get_args(), 2)
-
-        # ファイルパスのバリデーションチェック
-        validate_filepath(get_filepath(get_args()))
+        # コマンドライン引数からcsvファイルパスを取得
+        file_path = get_file_path()
 
         # ファイルパスから「プレイヤーID」毎にスコアを集計
-        groupby_playlog: Dict[str, PlayLog] = groupby_csv(get_filepath(get_args()))
+        groupby_playlog: Dict[str, PlayLog] = groupby_csv(file_path)
 
         # 集計後のプレイログから「平均スコア」を算出
         mean_playlog: Dict[str, int] = mean_dict(groupby_playlog)
@@ -73,38 +71,24 @@ def main() -> None:
         print_playlog(rank_playlog)
     except Exception as e:
         print(e)
+        exit(1)
 
 
-def get_args() -> list[str]:
-    """コマンドライン引数を取得
-
-    :returns sys.argv: コマンドライン引数
-    :rtype: list[str]
-    """
-    return sys.argv
-
-def validate_argv(args: list[str], max_length: int) -> None:
-    """コマンドライン引数のバリデーションチェック
-
-    :param args: コマンドライン引数
-    :type args: list[str]
-    :param max_length: コマンドライン引数の最大件数
-    :type max_length: int
-    """
-    if len(args) < max_length:
-        raise Exception('more arguments needed')
-    if len(args) > max_length:
-        raise Exception('too many arguments')
-
-def get_filepath(args: list[str]) -> str:
+def get_file_path() -> str:
     """コマンドライン引数からファイルパスを取得
 
-    :param args: コマンドライン引数
-    :type args: list[str]
-    :returns args[1]: ファイルパス（コマンドライン引数の第二引数）
+    :returns file_path: csvファイルパス
     :rtype: str
     """
-    return args[1]
+    parser:ArgumentParser = ArgumentParser()
+    parser.add_argument("file", help="csvファイルのパス")
+    args:Namespace = parser.parse_args()
+    file_path:str = args.file
+
+    if not file_path.endswith('.csv'):
+        raise Exception("Error: 入力されたファイルはcsvファイルではありません")
+
+    return file_path
 
 def validate_filepath(filepath: str) -> None:
     """ファイルパスのバリデーションチェック
