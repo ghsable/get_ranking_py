@@ -101,32 +101,15 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="main.get_args">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#get_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>コマンドライン引数を取得</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns sys.argv<span class="colon">:</span></dt>
-<dd class="field-odd"><p>コマンドライン引数</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>list[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="main.get_filepath">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/main.html#get_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_filepath" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="main.get_file_path">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_file_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/main.html#get_file_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_file_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>コマンドライン引数からファイルパスを取得</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – コマンドライン引数</p>
+<dt class="field-odd">Returns file_path<span class="colon">:</span></dt>
+<dd class="field-odd"><p>csvファイルパス</p>
 </dd>
-<dt class="field-even">Returns args[1]<span class="colon">:</span></dt>
-<dd class="field-even"><p>ファイルパス（コマンドライン引数の第二引数）</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,20 +185,6 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="main.validate_argv">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">validate_argv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#validate_argv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.validate_argv" title="Permalink to this definition">¶</a></dt>
-<dd><p>コマンドライン引数のバリデーションチェック</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – コマンドライン引数</p></li>
-<li><p><strong>max_length</strong> (<em>int</em>) – コマンドライン引数の最大件数</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="main.validate_filepath">
 <span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">validate_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/main.html#validate_filepath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.validate_filepath" title="Permalink to this definition">¶</a></dt>
 <dd><p>ファイルパスのバリデーションチェック</p>
@@ -245,14 +214,12 @@
 <li><a class="reference internal" href="#main.PlayLog.get_mean"><code class="docutils literal notranslate"><span class="pre">PlayLog.get_mean()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#main.get_args"><code class="docutils literal notranslate"><span class="pre">get_args()</span></code></a></li>
-<li><a class="reference internal" href="#main.get_filepath"><code class="docutils literal notranslate"><span class="pre">get_filepath()</span></code></a></li>
+<li><a class="reference internal" href="#main.get_file_path"><code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code></a></li>
 <li><a class="reference internal" href="#main.groupby_csv"><code class="docutils literal notranslate"><span class="pre">groupby_csv()</span></code></a></li>
 <li><a class="reference internal" href="#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li><a class="reference internal" href="#main.mean_dict"><code class="docutils literal notranslate"><span class="pre">mean_dict()</span></code></a></li>
 <li><a class="reference internal" href="#main.print_playlog"><code class="docutils literal notranslate"><span class="pre">print_playlog()</span></code></a></li>
 <li><a class="reference internal" href="#main.rank_dict"><code class="docutils literal notranslate"><span class="pre">rank_dict()</span></code></a></li>
-<li><a class="reference internal" href="#main.validate_argv"><code class="docutils literal notranslate"><span class="pre">validate_argv()</span></code></a></li>
 <li><a class="reference internal" href="#main.validate_filepath"><code class="docutils literal notranslate"><span class="pre">validate_filepath()</span></code></a></li>
 </ul>
 </li>
@@ -303,7 +270,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2023, Helve.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
     </div>
   </body>
 </html>
