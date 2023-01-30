@@ -105,7 +105,7 @@ def get_ranked_average(avg_scores: Dict[str, int], rank_limit: int) -> List[Tupl
 def print_ranked_average(ranked_average: List[Tuple[int, str, int]]) -> None:
     """「平均スコア」によるランキングを標準出力
 
-    :param ranked_average: 「平均スコア」によるランキングをプレイヤー単位で格納したタプル
+    :param ranked_average: 「平均スコア」によるランキング（降順）をプレイヤー単位（昇順）で格納したタプル
     :type ranked_average: List[Tuple[int, str, int]]
     """
     print("rank,player_id,mean_score")  # ヘッダ項目を標準出力
