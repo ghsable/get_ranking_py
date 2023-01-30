@@ -91,7 +91,7 @@ def get_ranked_average(avg_scores: Dict[str, int], rank_limit: int) -> List[Tupl
     """
     result: List[Tuple[int, str, int]] = []
     rank: int = 1
-    ranked_scores: List[Tuple[str, int]] = sorted(avg_scores.items(), key=lambda x: x[1], reverse=True)
+    ranked_scores: List[Tuple[str, int]] = sorted(avg_scores.items(), key=lambda x: (-x[1], x[0]))
 
     for i, (player_id, avg_score) in enumerate(ranked_scores):
         if i > 0 and avg_score < ranked_scores[i - 1][1]:
