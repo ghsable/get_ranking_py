@@ -3,6 +3,7 @@
 import sys
 import os
 from argparse import ArgumentParser, Namespace
+import pandas as pd
 import itertools
 from itertools import groupby
 import csv
@@ -89,17 +90,6 @@ def get_file_path() -> str:
         raise Exception("Error: 入力されたファイルはcsvファイルではありません。")
 
     return file_path
-
-def validate_filepath(filepath: str) -> None:
-    """ファイルパスのバリデーションチェック
-
-    :param filepath: ファイルパス
-    :type filepath: str
-    """
-    if not os.path.isfile(filepath):
-        raise Exception('no such file')
-    if not os.path.splitext(filepath)[1] == ".csv":
-        raise Exception('not a csv file')
 
 def groupby_csv(filepath: str) -> Dict[str, PlayLog]:
     """ファイルパスから「プレイヤーID」毎にスコアを集計
