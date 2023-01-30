@@ -60,11 +60,11 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="main.get_file_path">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_file_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/main.html#get_file_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_file_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="main.get_csv_file_path">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">get_csv_file_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/main.html#get_csv_file_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.get_csv_file_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>コマンドライン引数からcsvファイルパスを取得</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns file_path<span class="colon">:</span></dt>
+<dt class="field-odd">Returns csv_file_path<span class="colon">:</span></dt>
 <dd class="field-odd"><p>csvファイルパス</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -111,11 +111,11 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="main.summarize_csv_scores">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">summarize_csv_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#summarize_csv_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.summarize_csv_scores" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">summarize_csv_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/main.html#summarize_csv_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#main.summarize_csv_scores" title="Permalink to this definition">¶</a></dt>
 <dd><p>csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – csvファイルパス</p>
+<dd class="field-odd"><p><strong>csv_file_path</strong> (<em>str</em>) – csvファイルパス</p>
 </dd>
 <dt class="field-even">Returns result<span class="colon">:</span></dt>
 <dd class="field-even"><p>「プレイヤーID」毎に「スコア」「プレイ回数」を集計した辞書</p>
@@ -140,7 +140,7 @@
     <ul>
 <li><a class="reference internal" href="#">main module</a><ul>
 <li><a class="reference internal" href="#main.get_average"><code class="docutils literal notranslate"><span class="pre">get_average()</span></code></a></li>
-<li><a class="reference internal" href="#main.get_file_path"><code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code></a></li>
+<li><a class="reference internal" href="#main.get_csv_file_path"><code class="docutils literal notranslate"><span class="pre">get_csv_file_path()</span></code></a></li>
 <li><a class="reference internal" href="#main.get_ranked_average"><code class="docutils literal notranslate"><span class="pre">get_ranked_average()</span></code></a></li>
 <li><a class="reference internal" href="#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li><a class="reference internal" href="#main.print_ranked_average"><code class="docutils literal notranslate"><span class="pre">print_ranked_average()</span></code></a></li>
