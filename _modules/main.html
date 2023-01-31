@@ -44,21 +44,21 @@
 <span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span><span class="p">,</span> <span class="n">Namespace</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Final</span>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../main.html#main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># コマンドライン引数からcsvファイルパスを取得</span>
-        <span class="n">csv_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">get_csv_file_path</span><span class="p">()</span>
+        <span class="n">csv_file_path</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_csv_file_path</span><span class="p">()</span>
 
         <span class="c1"># csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計</span>
-        <span class="n">scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">summarize_csv_scores</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">)</span>
+        <span class="n">scores</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">summarize_csv_scores</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">)</span>
 
         <span class="c1"># 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出</span>
-        <span class="n">average_scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_average</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">average_scores</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">get_average</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 
         <span class="c1"># 「プレイヤーID」毎の「平均スコア」からランキング（10位以内）を算出</span>
-        <span class="n">ranked_average</span> <span class="o">=</span> <span class="n">get_ranked_average</span><span class="p">(</span><span class="n">average_scores</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">ranked_average</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">get_ranked_average</span><span class="p">(</span><span class="n">average_scores</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
         <span class="c1"># 「平均スコア」によるランキングを標準出力</span>
         <span class="n">print_ranked_average</span><span class="p">(</span><span class="n">ranked_average</span><span class="p">)</span>
