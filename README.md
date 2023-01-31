@@ -27,7 +27,7 @@
 
 ### 参考
 - [ゆめみさんのサーバーサイドコーディング試験の模擬問題のアドバイスを、中の人からいただいたので解説](https://qiita.com/yuu1111main/items/4776fec53fcdfad3a013)
-- [chatGPT](https://openai.com/blog/chatgpt/)
+- [ChatGPT](https://openai.com/blog/chatgpt/)
 
 ## 実行方法
 [Makefile](https://github.com/ghsable/get_ranking_py/blob/main/Makefile) より。
