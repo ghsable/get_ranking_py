@@ -5,21 +5,21 @@ import os
 import csv
 from argparse import ArgumentParser, Namespace
 from collections import defaultdict
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Final
 
 def main():
     try:
         # コマンドライン引数からcsvファイルパスを取得
-        csv_file_path: str = get_csv_file_path()
+        csv_file_path: Final[str] = get_csv_file_path()
 
         # csvファイルパスから「プレイヤーID」毎に「スコア」「プレイ回数」を集計
-        scores: Dict[str, List[int]] = summarize_csv_scores(csv_file_path)
+        scores: Final[Dict[str, List[int]]] = summarize_csv_scores(csv_file_path)
 
         # 集計後のスコアから「プレイヤーID」毎の「平均スコア」を算出
-        average_scores: Dict[str, int] = get_average(scores)
+        average_scores: Final[Dict[str, int]] = get_average(scores)
 
         # 「プレイヤーID」毎の「平均スコア」からランキング（10位以内）を算出
-        ranked_average = get_ranked_average(average_scores, 10)
+        ranked_average: Final[List[Tuple[int, str, int]]] = get_ranked_average(average_scores, 10)
 
         # 「平均スコア」によるランキングを標準出力
         print_ranked_average(ranked_average)
